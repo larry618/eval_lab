@@ -3,7 +3,7 @@ module github.com/larry618/eval_lab
 require (
 	github.com/antonmedv/expr v1.8.9
 	github.com/google/cel-go v0.7.3
-	github.com/larry618/eval v0.0.0-20220719004017-623848e6af9f
+	github.com/larry618/eval v0.0.0-20220724121141-07c93153366f
 	local/eval v1.0.0
 )
 

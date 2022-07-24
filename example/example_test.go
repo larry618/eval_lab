@@ -2,11 +2,11 @@ package example
 
 import (
 	"fmt"
-	evalmain "github.com/larry618/eval"
+	"github.com/larry618/eval"
 )
 
 func ExampleEval() {
-	output, err := evalmain.Eval(`(+ 1 v1)`, map[string]interface{}{
+	output, err := eval.Eval(`(+ 1 v1)`, map[string]interface{}{
 		"v1": 1,
 	})
 	if err != nil {

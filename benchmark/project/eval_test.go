@@ -1,17 +1,18 @@
 package project
 
 import (
-	evalmain "github.com/larry618/eval"
-	"github.com/larry618/eval_lab/benchmark"
 	"testing"
+
+	"github.com/larry618/eval"
+	"github.com/larry618/eval_lab/benchmark"
 )
 
 func Benchmark_eval(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalmain.NewCompileConfig()
+	cc := eval.NewCompileConfig(eval.RegisterSelKeys(params))
 
-	ctx := evalmain.NewCtxWithMap(cc, evalmain.ToValueMap(params))
+	ctx := eval.NewCtxWithMap(cc, params)
 
 	s := `
 (and
@@ -23,9 +24,9 @@ func Benchmark_eval(b *testing.B) {
     (= Adults 1)))
 `
 
-	program, err := evalmain.Compile(cc, s)
+	program, err := eval.Compile(cc, s)
 
-	var out evalmain.Value
+	var out eval.Value
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {

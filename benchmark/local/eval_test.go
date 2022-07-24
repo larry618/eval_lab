@@ -1,19 +1,19 @@
 package local
 
 import (
-	"github.com/larry618/eval_lab/benchmark"
 	"testing"
 
 	evalmain "github.com/larry618/eval"
+	"github.com/larry618/eval_lab/benchmark"
 	evalloc "local/eval"
 )
 
 func BenchmarkEvalLocal(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig()
+	cc := evalloc.NewCompileConfig(evalloc.RegisterSelKeys(params))
 
-	ctx := evalloc.NewCtxWithMap(cc, evalloc.ToValueMap(params))
+	ctx := evalloc.NewCtxWithMap(cc, params)
 
 	s := `
 (and
@@ -46,9 +46,9 @@ func BenchmarkEvalLocal(b *testing.B) {
 func BenchmarkEvalMain(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalmain.NewCompileConfig()
+	cc := evalmain.NewCompileConfig(evalmain.RegisterSelKeys(params))
 
-	ctx := evalmain.NewCtxWithMap(cc, evalmain.ToValueMap(params))
+	ctx := evalmain.NewCtxWithMap(cc, params)
 
 	s := `
 (and
@@ -81,9 +81,9 @@ func BenchmarkEvalMain(b *testing.B) {
 func BenchmarkEvalLocal1(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig()
+	cc := evalloc.NewCompileConfig(evalloc.RegisterSelKeys(params))
 
-	ctx := evalloc.NewCtxWithMap(cc, evalloc.ToValueMap(params))
+	ctx := evalloc.NewCtxWithMap(cc, params)
 
 	s := `
 (and
@@ -116,9 +116,9 @@ func BenchmarkEvalLocal1(b *testing.B) {
 func BenchmarkEvalMain1(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalmain.NewCompileConfig()
+	cc := evalmain.NewCompileConfig(evalmain.RegisterSelKeys(params))
 
-	ctx := evalmain.NewCtxWithMap(cc, evalmain.ToValueMap(params))
+	ctx := evalmain.NewCtxWithMap(cc, params)
 
 	s := `
 (and
