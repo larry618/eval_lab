@@ -1,10 +1,10 @@
 package project
 
 import (
-	"github.com/larry618/eval_lab/benchmark"
 	"testing"
 
 	"github.com/antonmedv/expr"
+	"github.com/lkxy/eval_lab/benchmark"
 )
 
 func Benchmark_expr(b *testing.B) {

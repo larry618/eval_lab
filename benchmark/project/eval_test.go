@@ -3,8 +3,8 @@ package project
 import (
 	"testing"
 
-	"github.com/larry618/eval"
-	"github.com/larry618/eval_lab/benchmark"
+	"github.com/lkxy/eval"
+	"github.com/lkxy/eval_lab/benchmark"
 )
 
 func Benchmark_eval(b *testing.B) {

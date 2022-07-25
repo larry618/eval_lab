@@ -2,7 +2,7 @@ package example
 
 import (
 	"fmt"
-	"github.com/larry618/eval"
+	"github.com/lkxy/eval"
 )
 
 func ExampleEval() {

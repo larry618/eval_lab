@@ -6,7 +6,7 @@ The tests in this folder are to compare the performance of local version with th
 
 Get the latest commits from the main branch
 ```
-go get github.com/larry618/eval@main
+go get github.com/lkxy/eval@main
 ```
 
 Run benchmark tests
@@ -18,7 +18,7 @@ go test -bench='BenchmarkEvalLocal' -run=none -benchtime=3s -benchmem -memprofil
 go tool pprof -http=:8080 profile.out
 ```
 
-Code optimization (in the [project eval](https://github.com/larry618/eval) directory)
+Code optimization (in the [project eval](https://github.com/lkxy/eval) directory)
 ```bash
 # escape analysis
 go build -gcflags="-m -m" 2>&1 | grep "engine"

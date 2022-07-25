@@ -3,8 +3,8 @@ package local
 import (
 	"testing"
 
-	evalmain "github.com/larry618/eval"
-	"github.com/larry618/eval_lab/benchmark"
+	evalmain "github.com/lkxy/eval"
+	"github.com/lkxy/eval_lab/benchmark"
 	evalloc "local/eval"
 )
 

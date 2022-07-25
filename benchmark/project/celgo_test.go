@@ -1,11 +1,12 @@
 package project
 
 import (
+	"testing"
+
 	"github.com/google/cel-go/cel"
 	"github.com/google/cel-go/checker/decls"
 	"github.com/google/cel-go/common/types/ref"
-	"github.com/larry618/eval_lab/benchmark"
-	"testing"
+	"github.com/lkxy/eval_lab/benchmark"
 )
 
 func Benchmark_celgo(b *testing.B) {
