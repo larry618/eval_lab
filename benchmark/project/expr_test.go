@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/antonmedv/expr"
-	"github.com/lkxy/eval_lab/benchmark"
+	"github.com/onheap/eval_lab/benchmark"
 )
 
 func Benchmark_expr(b *testing.B) {

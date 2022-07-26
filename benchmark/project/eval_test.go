@@ -3,8 +3,8 @@ package project
 import (
 	"testing"
 
-	"github.com/lkxy/eval"
-	"github.com/lkxy/eval_lab/benchmark"
+	"github.com/onheap/eval"
+	"github.com/onheap/eval_lab/benchmark"
 )
 
 func Benchmark_eval(b *testing.B) {

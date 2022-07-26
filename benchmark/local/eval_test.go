@@ -3,8 +3,8 @@ package local
 import (
 	"testing"
 
-	evalmain "github.com/lkxy/eval"
-	"github.com/lkxy/eval_lab/benchmark"
+	evalmain "github.com/onheap/eval"
+	"github.com/onheap/eval_lab/benchmark"
 	evalloc "local/eval"
 )
 
@@ -17,12 +17,12 @@ func BenchmarkEvalLocal(b *testing.B) {
 
 	s := `
 (and
-  (or
-    (= Origin "MOW")
-    (= Country "RU"))
-  (or
-    (>= Value 100)
-    (= Adults 1)))
+ (or
+   (= Origin "MOW")
+   (= Country "RU"))
+ (or
+   (>= Value 100)
+   (= Adults 1)))
 `
 
 	program, err := evalloc.Compile(cc, s)
@@ -52,12 +52,12 @@ func BenchmarkEvalMain(b *testing.B) {
 
 	s := `
 (and
-  (or
-    (= Origin "MOW")
-    (= Country "RU"))
-  (or
-    (>= Value 100)
-    (= Adults 1)))
+ (or
+   (= Origin "MOW")
+   (= Country "RU"))
+ (or
+   (>= Value 100)
+   (= Adults 1)))
 `
 
 	program, err := evalmain.Compile(cc, s)
@@ -87,12 +87,12 @@ func BenchmarkEvalLocal1(b *testing.B) {
 
 	s := `
 (and
-  (or
-    (= Origin "MOW")
-    (= Country "RU"))
-  (or
-    (>= Value 100)
-    (= Adults 1)))
+ (or
+   (= Origin "MOW")
+   (= Country "RU"))
+ (or
+   (>= Value 100)
+   (= Adults 1)))
 `
 
 	program, err := evalloc.Compile(cc, s)
@@ -122,12 +122,12 @@ func BenchmarkEvalMain1(b *testing.B) {
 
 	s := `
 (and
-  (or
-    (= Origin "MOW")
-    (= Country "RU"))
-  (or
-    (>= Value 100)
-    (= Adults 1)))
+ (or
+   (= Origin "MOW")
+   (= Country "RU"))
+ (or
+   (>= Value 100)
+   (= Adults 1)))
 `
 
 	program, err := evalmain.Compile(cc, s)

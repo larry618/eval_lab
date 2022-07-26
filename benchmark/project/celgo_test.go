@@ -6,7 +6,7 @@ import (
 	"github.com/google/cel-go/cel"
 	"github.com/google/cel-go/checker/decls"
 	"github.com/google/cel-go/common/types/ref"
-	"github.com/lkxy/eval_lab/benchmark"
+	"github.com/onheap/eval_lab/benchmark"
 )
 
 func Benchmark_celgo(b *testing.B) {

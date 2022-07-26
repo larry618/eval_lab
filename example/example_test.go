@@ -2,7 +2,7 @@ package example
 
 import (
 	"fmt"
-	"github.com/lkxy/eval"
+	"github.com/onheap/eval"
 )
 
 func ExampleEval() {

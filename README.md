@@ -1,6 +1,6 @@
 # eval_lab
 
-This project is the laboratory of the project [eval](https://github.com/lkxy/eval). It has two main functions:
+This project is the laboratory of the project [eval](https://github.com/onheap/eval). It has two main functions:
 * Demonstrating how to use project eval
 * Monitor performance changes during development
 
