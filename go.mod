@@ -5,8 +5,8 @@ go 1.18
 require (
 	github.com/antonmedv/expr v1.9.0
 	github.com/google/cel-go v0.12.4
-	github.com/onheap/eval v0.0.0-20220726112430-f31dc2d0bae9
-    local/eval v1.0.0
+	github.com/onheap/eval v0.0.0-20220821152226-a864c76a59cf
+	local/eval v1.0.0
 )
 
 require (

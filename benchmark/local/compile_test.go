@@ -1,7 +1,6 @@
 package local
 
 import (
-	"strconv"
 	"testing"
 
 	evalmain "github.com/onheap/eval"
@@ -9,13 +8,11 @@ import (
 	evalloc "local/eval"
 )
 
-func BenchmarkEvalLocal(b *testing.B) {
+func BenchmarkCompileLocal(b *testing.B) {
 	params := benchmark.CreateParams()
 
 	cc := evalloc.NewCompileConfig(evalloc.RegisterSelKeys(params))
 
-	ctx := evalloc.NewCtxWithMap(cc, params)
-
 	s := `
 (and
  (or
@@ -26,31 +23,34 @@ func BenchmarkEvalLocal(b *testing.B) {
    (= Adults 1)))
 `
 
-	program, err := evalloc.Compile(cc, s)
-
-	var out evalloc.Value
-
+	var program *evalloc.Expr
+	var err error
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
-		out, err = program.Eval(ctx)
+		program, err = evalloc.Compile(cc, s)
 	}
 	b.StopTimer()
 
 	if err != nil {
 		b.Fatal(err)
 	}
+	ctx := evalloc.NewCtxWithMap(cc, params)
+	out, err := program.Eval(ctx)
+
+	if err != nil {
+		b.Fatal(err)
+	}
+
 	if !out.(bool) {
 		b.Fail()
 	}
 }
 
-func BenchmarkEvalMain(b *testing.B) {
+func BenchmarkCompileMain(b *testing.B) {
 	params := benchmark.CreateParams()
 
 	cc := evalmain.NewCompileConfig(evalmain.RegisterSelKeys(params))
 
-	ctx := evalmain.NewCtxWithMap(cc, params)
-
 	s := `
 (and
  (or
@@ -61,45 +61,34 @@ func BenchmarkEvalMain(b *testing.B) {
    (= Adults 1)))
 `
 
-	program, err := evalmain.Compile(cc, s)
-
-	var out evalmain.Value
-
+	var program *evalmain.Expr
+	var err error
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
-		out, err = program.Eval(ctx)
+		program, err = evalmain.Compile(cc, s)
 	}
 	b.StopTimer()
 
 	if err != nil {
 		b.Fatal(err)
 	}
+	ctx := evalmain.NewCtxWithMap(cc, params)
+	out, err := program.Eval(ctx)
+
+	if err != nil {
+		b.Fatal(err)
+	}
+
 	if !out.(bool) {
 		b.Fail()
 	}
 }
 
-func BenchmarkReference(b *testing.B) {
-	var out interface{}
-	b.ResetTimer()
-
-	for n := 0; n < b.N; n++ {
-		out = strconv.Itoa(n)
-	}
-	b.StopTimer()
-
-	if out == nil {
-		b.Fatal(out)
-	}
-}
-
-func BenchmarkEvalLocal1(b *testing.B) {
+func BenchmarkCompileLocal1(b *testing.B) {
 	params := benchmark.CreateParams()
 
 	cc := evalloc.NewCompileConfig(evalloc.RegisterSelKeys(params))
 
-	ctx := evalloc.NewCtxWithMap(cc, params)
-
 	s := `
 (and
  (or
@@ -110,31 +99,34 @@ func BenchmarkEvalLocal1(b *testing.B) {
    (= Adults 1)))
 `
 
-	program, err := evalloc.Compile(cc, s)
-
-	var out evalloc.Value
-
+	var program *evalloc.Expr
+	var err error
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
-		out, err = program.Eval(ctx)
+		program, err = evalloc.Compile(cc, s)
 	}
 	b.StopTimer()
 
 	if err != nil {
 		b.Fatal(err)
 	}
+	ctx := evalloc.NewCtxWithMap(cc, params)
+	out, err := program.Eval(ctx)
+
+	if err != nil {
+		b.Fatal(err)
+	}
+
 	if !out.(bool) {
 		b.Fail()
 	}
 }
 
-func BenchmarkEvalMain1(b *testing.B) {
+func BenchmarkCompileMain1(b *testing.B) {
 	params := benchmark.CreateParams()
 
 	cc := evalmain.NewCompileConfig(evalmain.RegisterSelKeys(params))
 
-	ctx := evalmain.NewCtxWithMap(cc, params)
-
 	s := `
 (and
  (or
@@ -145,34 +137,25 @@ func BenchmarkEvalMain1(b *testing.B) {
    (= Adults 1)))
 `
 
-	program, err := evalmain.Compile(cc, s)
-
-	var out evalmain.Value
-
+	var program *evalmain.Expr
+	var err error
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
-		out, err = program.Eval(ctx)
+		program, err = evalmain.Compile(cc, s)
 	}
 	b.StopTimer()
 
 	if err != nil {
 		b.Fatal(err)
 	}
+	ctx := evalmain.NewCtxWithMap(cc, params)
+	out, err := program.Eval(ctx)
+
+	if err != nil {
+		b.Fatal(err)
+	}
+
 	if !out.(bool) {
 		b.Fail()
-	}
-}
-
-func BenchmarkReference1(b *testing.B) {
-	var out interface{}
-	b.ResetTimer()
-
-	for n := 0; n < b.N; n++ {
-		out = strconv.Itoa(n)
-	}
-	b.StopTimer()
-
-	if out == nil {
-		b.Fatal(out)
 	}
 }
