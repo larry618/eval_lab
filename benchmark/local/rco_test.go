@@ -9,7 +9,7 @@ import (
 func BenchmarkEvalLocalRCO(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterSelKeys(params))
+	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
 
 	ctx := evalloc.NewCtxWithMap(cc, params)
 
@@ -29,7 +29,7 @@ func BenchmarkEvalLocalRCO(b *testing.B) {
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
-		out, err = program.EvalRCO(ctx)
+		out, err = program.TryEval(ctx)
 	}
 	b.StopTimer()
 

@@ -11,7 +11,7 @@ import (
 func BenchmarkCompileLocal(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterSelKeys(params))
+	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
 
 	s := `
 (and
@@ -49,7 +49,7 @@ func BenchmarkCompileLocal(b *testing.B) {
 func BenchmarkCompileMain(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalmain.NewCompileConfig(evalmain.RegisterSelKeys(params))
+	cc := evalmain.NewCompileConfig(evalmain.RegisterVals(params))
 
 	s := `
 (and
@@ -87,7 +87,7 @@ func BenchmarkCompileMain(b *testing.B) {
 func BenchmarkCompileLocal1(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterSelKeys(params))
+	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
 
 	s := `
 (and
@@ -125,7 +125,7 @@ func BenchmarkCompileLocal1(b *testing.B) {
 func BenchmarkCompileMain1(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalmain.NewCompileConfig(evalmain.RegisterSelKeys(params))
+	cc := evalmain.NewCompileConfig(evalmain.RegisterVals(params))
 
 	s := `
 (and

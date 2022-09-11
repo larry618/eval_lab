@@ -10,7 +10,7 @@ import (
 func Benchmark_eval(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := eval.NewCompileConfig(eval.RegisterSelKeys(params))
+	cc := eval.NewCompileConfig(eval.RegisterVals(params))
 
 	ctx := eval.NewCtxWithMap(cc, params)
 
@@ -45,7 +45,7 @@ func Benchmark_eval(b *testing.B) {
 func Benchmark_eval_rco(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := eval.NewCompileConfig(eval.RegisterSelKeys(params))
+	cc := eval.NewCompileConfig(eval.RegisterVals(params))
 
 	ctx := eval.NewCtxWithMap(cc, params)
 

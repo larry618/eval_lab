@@ -12,7 +12,7 @@ import (
 func BenchmarkEvalLocal(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterSelKeys(params))
+	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
 
 	ctx := evalloc.NewCtxWithMap(cc, params)
 
@@ -47,7 +47,7 @@ func BenchmarkEvalLocal(b *testing.B) {
 func BenchmarkEvalMain(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalmain.NewCompileConfig(evalmain.RegisterSelKeys(params))
+	cc := evalmain.NewCompileConfig(evalmain.RegisterVals(params))
 
 	ctx := evalmain.NewCtxWithMap(cc, params)
 
@@ -96,7 +96,7 @@ func BenchmarkReference(b *testing.B) {
 func BenchmarkEvalLocal1(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterSelKeys(params))
+	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
 
 	ctx := evalloc.NewCtxWithMap(cc, params)
 
@@ -131,7 +131,7 @@ func BenchmarkEvalLocal1(b *testing.B) {
 func BenchmarkEvalMain1(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalmain.NewCompileConfig(evalmain.RegisterSelKeys(params))
+	cc := evalmain.NewCompileConfig(evalmain.RegisterVals(params))
 
 	ctx := evalmain.NewCtxWithMap(cc, params)
 

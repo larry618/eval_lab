@@ -27,7 +27,7 @@ func ExampleEval_infix() {
 		"v4": 4,
 		"v5": 5,
 	}
-	cc := eval.NewCompileConfig(eval.EnableInfixNotation, eval.RegisterSelKeys(vals))
+	cc := eval.NewCompileConfig(eval.EnableInfixNotation, eval.RegisterVals(vals))
 
 	output, err := eval.Eval(expr, vals, cc)
 	if err != nil {
