@@ -65,7 +65,7 @@ func Benchmark_eval_rco(b *testing.B) {
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
-		out, err = program.Eval(ctx)
+		out, err = program.TryEval(ctx)
 	}
 	b.StopTimer()
 
