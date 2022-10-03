@@ -11,8 +11,8 @@ const defaultCost = 7
 type Optimizer struct {
 	cc *eval.CompileConfig
 
-	base map[string]int
-	curt map[string]int
+	base map[string]float64
+	curt map[string]float64
 
 	rules []string
 	ctxes []*eval.Ctx
@@ -39,7 +39,7 @@ func NewOptimizer(
 		exprs: make([]*eval.Expr, len(rules)),
 	}
 
-	curt := make(map[string]int, len(o.base))
+	curt := make(map[string]float64, len(o.base))
 	for k, v := range o.base {
 		curt[k] = v
 	}
