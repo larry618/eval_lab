@@ -1,4 +1,4 @@
-package data
+package model
 
 import (
 	"fmt"
@@ -22,30 +22,29 @@ var (
 
 	categoryIDs = []int64{1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000}
 
-	FakeNow = time.Unix(2000000000, 0)
+	FakeNow = func() time.Time { return time.Unix(2000000000, 0) }
 )
 
 func GenUser(f gofakeit.Faker) *User {
 	u := new(User)
 	u.ID = int64(f.IntRange(0, math.MaxInt))
 	u.Name = f.Name()
-	u.BirthDate = f.DateRange(time.Unix(0, 0), FakeNow)
-	u.Age = FakeNow.Year() - u.BirthDate.Year()
+	u.BirthDate = f.DateRange(time.Unix(0, 0), FakeNow())
+	u.Age = FakeNow().Year() - u.BirthDate.Year()
 	u.Gender = chooseWithP(f, 0.1, GenderOther, Gender(f.RandomInt([]int{1, 2})))
 	u.Address = GenAddress(f)
 	u.Language = f.LanguageBCP()
-	u.CreatedAt = f.DateRange(u.BirthDate, FakeNow)
-	u.UpdatedAt = f.DateRange(u.CreatedAt, FakeNow)
+	u.CreatedAt = f.DateRange(u.BirthDate, FakeNow())
+	u.UpdatedAt = f.DateRange(u.CreatedAt, FakeNow())
 	u.Credit = Credit(f.IntRange(-1, 3))
 	u.CreditLimit = chooseWithP(f, 0.8, 0, f.Float64Range(0, 5000))
 	u.Discount = chooseWithP(f, 0.5, 1, f.Float64Range(0.5, 1))
 	u.Balance = chooseWithP(f, 0.6, 0, f.Float64Range(0, 5000))
-	u.isStudent = chooseWithP(f, 0.1, true, false)
-	u.isVip = chooseWithP(f, 0.3, true, false)
+	u.IsStudent = chooseWithP(f, 0.1, true, false)
+	u.IsVip = chooseWithP(f, 0.3, true, false)
 	u.CurrentDevice = GenDevice(f)
 	u.PaymentFeatures = GenUserPaymentFeatures(f)
 	u.Interests = sampleArray(f, interests, f.IntRange(0, 6))
-	u.PreferCategoryIDs = sampleArray(f, categoryIDs, f.IntRange(0, 4))
 
 	for i := 0; i < f.IntRange(0, 6); i++ {
 		u.RecentDevices = append(u.RecentDevices, GenDevice(f))
@@ -145,8 +144,9 @@ func GenUserPaymentFeatures(f gofakeit.Faker) *UserPaymentFeatures {
 	u.AvgPrice = u.TotalAmount / float64(u.TotalCount)
 
 	u.LatestPurchaseItem = GenItem(f)
-	u.LatestPurchasedAt = f.DateRange(time.Unix(0, 0), FakeNow)
+	u.LatestPurchasedAt = f.DateRange(time.Unix(0, 0), FakeNow())
 
+	u.PreferCategoryIDs = sampleArray(f, categoryIDs, f.IntRange(0, 4))
 	return u
 }
 

@@ -1,4 +1,4 @@
-package data
+package model
 
 import "time"
 
@@ -16,27 +16,26 @@ type Item struct {
 }
 
 type User struct {
-	ID                int64
-	Name              string
-	Age               int
-	BirthDate         time.Time
-	Gender            Gender
-	Address           *Address
-	Language          string
-	Interests         []string
-	UserTags          []string
-	CreatedAt         time.Time
-	UpdatedAt         time.Time
-	Credit            Credit
-	CreditLimit       float64
-	Discount          float64
-	Balance           float64
-	isVip             bool
-	isStudent         bool
-	CurrentDevice     *Device
-	RecentDevices     []*Device
-	PreferCategoryIDs []int64
-	PaymentFeatures   *UserPaymentFeatures
+	ID              int64
+	Name            string
+	Age             int
+	BirthDate       time.Time
+	Gender          Gender
+	Address         *Address
+	Language        string
+	Interests       []string
+	UserTags        []string
+	CreatedAt       time.Time
+	UpdatedAt       time.Time
+	Credit          Credit
+	CreditLimit     float64
+	Discount        float64
+	Balance         float64
+	IsVip           bool
+	IsStudent       bool
+	CurrentDevice   *Device
+	RecentDevices   []*Device
+	PaymentFeatures *UserPaymentFeatures
 }
 
 type Device struct {
@@ -68,6 +67,8 @@ type UserPaymentFeatures struct {
 
 	LatestPurchaseItem *Item
 	LatestPurchasedAt  time.Time
+
+	PreferCategoryIDs []int64
 }
 
 type ItemPaymentFeatures struct {
