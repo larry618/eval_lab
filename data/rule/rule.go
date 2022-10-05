@@ -71,6 +71,15 @@ func ToEvalCtx(ctx context.Context, u *model.User) *eval.Ctx {
 	}
 }
 
+func CompileConfig() *eval.CompileConfig {
+	return &eval.CompileConfig{
+		ConstantMap:        ConstantMap(),
+		SelectorMap:        SelectorMap(),
+		OperatorMap:        OperatorMap(),
+		StatelessOperators: []string{"is_birthday", "distance"},
+	}
+}
+
 func SelectorMap() map[string]eval.SelectorKey {
 	return map[string]eval.SelectorKey{
 		"user_id":         UserID,
@@ -176,19 +185,15 @@ func OperatorMap() map[string]eval.Operator {
 	}
 }
 
-func LoadAndCompileRules(cc *eval.CompileConfig) ([]*eval.Expr, error) {
+func LoadRules() ([]string, error) {
 	conf, err := hocon.ParseResource("data/rule/rules.conf")
 	if err != nil {
 		return nil, err
 	}
-	var rules []*eval.Expr
+	var rules []string
 	for _, rule := range conf.GetRoot().(hocon.Array) {
 		r := rule.(hocon.Object)["rule"].String()
-		expr, err := eval.Compile(cc, r)
-		if err != nil {
-			return nil, err
-		}
-		rules = append(rules, expr)
+		rules = append(rules, r)
 	}
 	return rules, nil
 }

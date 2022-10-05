@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 	"math"
+	"math/rand"
 	"strconv"
 	"time"
 
@@ -25,14 +26,25 @@ var (
 	FakeNow = func() time.Time { return time.Unix(2000000000, 0) }
 )
 
-func GenUser(f gofakeit.Faker) *User {
+func NewGenerator(seed int64) *Generator {
+	return &Generator{
+		faker: gofakeit.Faker{Rand: rand.New(rand.NewSource(seed))},
+	}
+}
+
+type Generator struct {
+	faker gofakeit.Faker
+}
+
+func (g *Generator) GenUser() *User {
+	f := g.faker
 	u := new(User)
 	u.ID = int64(f.IntRange(0, math.MaxInt))
 	u.Name = f.Name()
 	u.BirthDate = f.DateRange(time.Unix(0, 0), FakeNow())
 	u.Age = FakeNow().Year() - u.BirthDate.Year()
 	u.Gender = chooseWithP(f, 0.1, GenderOther, Gender(f.RandomInt([]int{1, 2})))
-	u.Address = GenAddress(f)
+	u.Address = g.GenAddress()
 	u.Language = f.LanguageBCP()
 	u.CreatedAt = f.DateRange(u.BirthDate, FakeNow())
 	u.UpdatedAt = f.DateRange(u.CreatedAt, FakeNow())
@@ -42,12 +54,12 @@ func GenUser(f gofakeit.Faker) *User {
 	u.Balance = chooseWithP(f, 0.6, 0, f.Float64Range(0, 5000))
 	u.IsStudent = chooseWithP(f, 0.1, true, false)
 	u.IsVip = chooseWithP(f, 0.3, true, false)
-	u.CurrentDevice = GenDevice(f)
-	u.PaymentFeatures = GenUserPaymentFeatures(f)
+	u.CurrentDevice = g.GenDevice()
+	u.PaymentFeatures = g.GenUserPaymentFeatures()
 	u.Interests = sampleArray(f, interests, f.IntRange(0, 6))
 
 	for i := 0; i < f.IntRange(0, 6); i++ {
-		u.RecentDevices = append(u.RecentDevices, GenDevice(f))
+		u.RecentDevices = append(u.RecentDevices, g.GenDevice())
 	}
 
 	for _, tags := range userTags {
@@ -57,7 +69,8 @@ func GenUser(f gofakeit.Faker) *User {
 	return u
 }
 
-func GenItem(f gofakeit.Faker) *Item {
+func (g *Generator) GenItem() *Item {
+	f := g.faker
 	u := new(Item)
 	u.ID = f.Int64()
 	u.Name = f.Emoji()
@@ -67,12 +80,14 @@ func GenItem(f gofakeit.Faker) *Item {
 	u.Rating = f.Float64Range(3, 5)
 	u.Status = uint8(f.RandomInt([]int{0, 1, 2}))
 	u.Price = f.Price(5, 2000)
-	u.WarehouseAddress = GenAddress(f)
-	u.PaymentFeatures = GenItemPaymentFeatures(f)
+	u.WarehouseAddress = g.GenAddress()
+	u.PaymentFeatures = g.GenItemPaymentFeatures()
 	return u
 }
 
-func GenAddress(f gofakeit.Faker) *Address {
+func (g *Generator) GenAddress() *Address {
+	f := g.faker
+
 	return &Address{
 		Country:   f.CountryAbr(),
 		State:     f.StateAbr(),
@@ -83,7 +98,9 @@ func GenAddress(f gofakeit.Faker) *Address {
 	}
 }
 
-func GenItemPaymentFeatures(f gofakeit.Faker) *ItemPaymentFeatures {
+func (g *Generator) GenItemPaymentFeatures() *ItemPaymentFeatures {
+	f := g.faker
+
 	u := new(ItemPaymentFeatures)
 	u.MtdCount = int64(f.IntRange(0, 1000))
 	u.YtdCount = int64(f.IntRange(int(u.MtdCount), 100000))
@@ -119,7 +136,8 @@ func GenItemPaymentFeatures(f gofakeit.Faker) *ItemPaymentFeatures {
 	return u
 }
 
-func GenUserPaymentFeatures(f gofakeit.Faker) *UserPaymentFeatures {
+func (g *Generator) GenUserPaymentFeatures() *UserPaymentFeatures {
+	f := g.faker
 	u := new(UserPaymentFeatures)
 
 	u.TotalCount = int64(f.IntRange(0, 1000))
@@ -143,14 +161,15 @@ func GenUserPaymentFeatures(f gofakeit.Faker) *UserPaymentFeatures {
 
 	u.AvgPrice = u.TotalAmount / float64(u.TotalCount)
 
-	u.LatestPurchaseItem = GenItem(f)
+	u.LatestPurchaseItem = g.GenItem()
 	u.LatestPurchasedAt = f.DateRange(time.Unix(0, 0), FakeNow())
 
 	u.PreferCategoryIDs = sampleArray(f, categoryIDs, f.IntRange(0, 4))
 	return u
 }
 
-func GenDevice(f gofakeit.Faker) *Device {
+func (g *Generator) GenDevice() *Device {
+	f := g.faker
 	d := new(Device)
 	d.Brand = f.RandomString(phoneBrands)
 
