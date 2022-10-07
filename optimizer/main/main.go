@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"github.com/MaxHalford/eaopt"
 	"github.com/onheap/eval_lab/common"
-	"github.com/onheap/eval_lab/costs"
 	"github.com/onheap/eval_lab/data/model"
 	"github.com/onheap/eval_lab/data/rule"
+	"github.com/onheap/eval_lab/optimizer"
 	"local/eval"
 )
 
@@ -55,7 +55,7 @@ func main() {
 		"user_tags":       -0.7498110735744463,
 	}
 
-	executor := costs.NewExecutor(config, rules, ctxes)
+	executor := optimizer.NewExecutor(config, rules, ctxes)
 	initCosts := executor.GetInitCosts()
 
 	count, err := executor.Exec(initCosts)
@@ -65,7 +65,7 @@ func main() {
 
 	fmt.Println("initial execution count:", count)
 
-	o := &costs.GAOptimizer{
+	o := &optimizer.GAOptimizer{
 		Executor: executor,
 		Costs:    initCosts,
 	}
@@ -76,7 +76,7 @@ func main() {
 	}
 
 	// Set the number of generations to run for
-	ga.NGenerations = 100
+	ga.NGenerations = 10
 
 	// Add a custom print function to track progress
 	ga.Callback = o.Callback
@@ -87,6 +87,6 @@ func main() {
 		panic(err)
 	}
 
-	finalCosts := ga.HallOfFame[0].Genome.(*costs.GAOptimizer).Costs
+	finalCosts := ga.HallOfFame[0].Genome.(*optimizer.GAOptimizer).Costs
 	common.PrintJson(executor.CostsMap(finalCosts))
 }

@@ -1,4 +1,4 @@
-package costs
+package optimizer
 
 import (
 	"local/eval"
