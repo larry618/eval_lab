@@ -9,7 +9,6 @@ require (
 	github.com/google/cel-go v0.12.4
 	github.com/gurkankaymak/hocon v1.2.7
 	github.com/onheap/eval v0.0.0-20220913070844-19f42ba2a58c
-	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 	local/eval v1.0.0
 )
 
