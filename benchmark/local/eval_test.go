@@ -79,7 +79,7 @@ func BenchmarkEvalMain(b *testing.B) {
 	}
 }
 
-func BenchmarkReference(b *testing.B) {
+func BenchmarkItoa(b *testing.B) {
 	var out interface{}
 	b.ResetTimer()
 
@@ -163,7 +163,7 @@ func BenchmarkEvalMain1(b *testing.B) {
 	}
 }
 
-func BenchmarkReference1(b *testing.B) {
+func BenchmarkItoa1(b *testing.B) {
 	var out interface{}
 	b.ResetTimer()
 
