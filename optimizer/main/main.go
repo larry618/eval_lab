@@ -76,7 +76,7 @@ func main() {
 	}
 
 	// Set the number of generations to run for
-	ga.NGenerations = 10
+	ga.NGenerations = 1000
 
 	// Add a custom print function to track progress
 	ga.Callback = o.Callback

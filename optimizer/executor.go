@@ -4,6 +4,8 @@ import (
 	"local/eval"
 	"sync"
 	"sync/atomic"
+
+	"golang.org/x/sync/errgroup"
 )
 
 type Executor struct {
@@ -56,7 +58,7 @@ func (e *Executor) CostsMap(costs []float64) map[string]float64 {
 	return res
 }
 
-func (e *Executor) Exec(costs []float64) (int64, error) {
+func (e *Executor) Exec(costs []float64) (float64, error) {
 	t := e.newTask(costs)
 	err := t.init()
 	if err != nil {
@@ -69,7 +71,7 @@ func (e *Executor) Exec(costs []float64) (int64, error) {
 	}
 
 	t.clean()
-	return t.counter, nil
+	return float64(t.counter), nil
 }
 
 func (e *Executor) newTask(costs []float64) *task {
@@ -112,16 +114,20 @@ func (t *task) init() error {
 }
 
 func (t *task) exec() error {
-	for _, expr := range t.exprs {
-		for _, ctx := range t.ctxes {
-			_, err := expr.Eval(ctx)
-			if err != nil {
-				return err
+	var eg errgroup.Group
+	for i := range t.exprs {
+		expr := t.exprs[i]
+		eg.Go(func() error {
+			for _, ctx := range t.ctxes {
+				_, err := expr.Eval(ctx)
+				if err != nil {
+					return err
+				}
 			}
-		}
+			return nil
+		})
 	}
-
-	return nil
+	return eg.Wait()
 }
 
 func (t *task) stats(expr *eval.Expr) {

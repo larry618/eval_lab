@@ -12,8 +12,7 @@ type GAOptimizer struct {
 }
 
 func (o *GAOptimizer) Evaluate() (float64, error) {
-	counter, err := o.Executor.Exec(o.Costs)
-	return float64(counter), err
+	return o.Executor.Exec(o.Costs)
 }
 
 func (o *GAOptimizer) Mutate(rng *rand.Rand) {
