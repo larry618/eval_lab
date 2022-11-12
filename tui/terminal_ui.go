@@ -47,12 +47,11 @@ func (tui *TerminalUI) Start() {
 type TerminalUI struct {
 	Width int
 
-	TryEval bool
-	Expr    string
-	CC      *eval.CompileConfig
-	Params  map[string]interface{}
-
-	exprStr string
+	Expr          string
+	Config        *eval.CompileConfig
+	Params        map[string]interface{}
+	TryEval       bool
+	SkipEventNode bool
 
 	ctx  *eval.Ctx
 	expr *eval.Expr
@@ -73,18 +72,18 @@ type TerminalUI struct {
 }
 
 func (tui *TerminalUI) initExpr() {
-	tui.exprStr = eval.IndentByParentheses(tui.Expr)
+	tui.Expr = eval.IndentByParentheses(tui.Expr)
 
-	tui.ctx = eval.NewCtxWithMap(tui.CC, tui.Params)
+	tui.ctx = eval.NewCtxWithMap(tui.Config, tui.Params)
 
-	expr, err := eval.Compile(tui.CC, tui.exprStr)
+	expr, err := eval.Compile(tui.Config, tui.Expr)
 	if err != nil {
 		panic(err)
 	}
 
 	expr.EventChan = make(chan eval.Event)
 	tui.expr = expr
-	tui.exprTable = eval.DumpTable(expr, true)
+	tui.exprTable = eval.DumpTable(expr, tui.SkipEventNode)
 	tui.indexRow = strings.Split(tui.exprTable, "\n")[2]
 }
 
@@ -94,11 +93,11 @@ func (tui *TerminalUI) initTui() {
 		width = 150
 	}
 
-	var height = strings.Count(tui.exprStr, "\n") + 3
+	var height = strings.Count(tui.Expr, "\n") + 3
 
 	leftGraph := widgets.NewParagraph()
 	leftGraph.Title = "Original Expression"
-	leftGraph.Text = tui.exprStr
+	leftGraph.Text = tui.Expr
 	leftGraph.SetRect(0, 0, width/2, height)
 
 	rightGraph := widgets.NewParagraph()

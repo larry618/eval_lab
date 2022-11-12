@@ -50,12 +50,13 @@ func main() {
 	}
 
 	t := &tui.TerminalUI{
-		Width: 150,
+		Width: 170,
 
-		Expr:    s,
-		CC:      cc,
-		Params:  vals,
-		TryEval: true,
+		Expr:          s,
+		Config:        cc,
+		Params:        vals,
+		TryEval:       false,
+		SkipEventNode: true,
 	}
 
 	t.Start()
