@@ -4,7 +4,7 @@ import (
 	"fmt"
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
-	"github.com/onheap/eval"
+	"local/eval"
 	"strings"
 	"time"
 )
@@ -65,7 +65,7 @@ type TerminalUI struct {
 	stackGraph *widgets.Paragraph
 
 	events []string
-	prev   eval.Event
+	prev   eval.LoopEventData
 
 	exprTable string
 	indexRow  string
@@ -113,7 +113,12 @@ func (tui *TerminalUI) initTui() {
 
 	eventsList := widgets.NewList()
 	eventsList.Title = "Execution Events"
-	eventsList.Rows = []string{"Press <Enter> to start execution"}
+	eventsList.Rows = []string{
+		"Press <Enter> to start execution",
+		"Press <j> or <k> to scroll",
+		"Press <r> to restart",
+		"Press <q> to quit",
+	}
 	eventsList.WrapText = false
 	eventsList.TextStyle = ui.NewStyle(ui.ColorWhite)
 	eventsList.SelectedRowStyle = ui.NewStyle(ui.ColorRed)
@@ -136,7 +141,7 @@ func (tui *TerminalUI) initTui() {
 
 func (tui *TerminalUI) init() {
 	ui.Clear()
-	tui.prev = eval.Event{}
+	tui.prev = eval.LoopEventData{}
 	tui.events = nil
 	tui.initExpr()
 	tui.initTui()
@@ -173,12 +178,12 @@ func (tui *TerminalUI) handleExecEvent() bool {
 	if !ok {
 		text := fmt.Sprintf("Final result: %v", tui.res)
 		text += strings.Repeat("\n", 10)
-		text += "[Press <q> to quit\nPress <r> to restart](fg:red)"
+		text += "[Press <r> to restart\nPress <q> to quit](fg:red)"
 		tui.stackGraph.Text = text
 		return true
 	}
 	switch ev.EventType {
-	case eval.OpExecEvent, eval.FastOpExecEvent:
+	case eval.OpExecEvent:
 		data := ev.Data.(eval.OpEventData)
 		row := fmt.Sprintf(
 			"[%3d] [Exec Operator](bg:green): op: %s, params: %v, res: %v, err: %v",
@@ -187,11 +192,11 @@ func (tui *TerminalUI) handleExecEvent() bool {
 	case eval.LoopEvent:
 		var (
 			prev    = tui.prev
-			curt    = ev.Data
-			curtIdx = int(ev.CurtIdx)
+			curt    = ev.Data.(eval.LoopEventData)
+			curtIdx = int(curt.CurtIdx)
 		)
 
-		idx := strings.Index(tui.indexRow, fmt.Sprintf("|%4d|", curtIdx)) + 3
+		idx := strings.Index(tui.indexRow, fmt.Sprintf("|%5d|", curtIdx)) + 3
 		cursorRow := strings.Repeat(" ", idx) + "▲"
 		tui.tableGraph.Text = tui.exprTable + cursorRow
 
@@ -200,14 +205,14 @@ func (tui *TerminalUI) handleExecEvent() bool {
 			minSteps = 4
 		}
 
-		if steps := ev.CurtIdx - prev.CurtIdx; steps > minSteps {
-			events = append(events, fmt.Sprintf("[%3d] [Short Circuit](bg:red): [%v] jump to [%v] ", len(events), prev.Data, curt))
+		if steps := curt.CurtIdx - prev.CurtIdx; steps > minSteps {
+			events = append(events, fmt.Sprintf("[%3d] [Short Circuit](bg:red): [%v] jump to [%v] ", len(events), prev.NodeValue, curt))
 		}
 
-		events = append(events, fmt.Sprintf("[%3d] Execute Node: [%v], type:[%s], idx:[%d] ", len(events), curt, ev.NodeType.String(), curtIdx))
+		events = append(events, fmt.Sprintf("[%3d] Execute Node: [%v], type:[%s], idx:[%d] ", len(events), curt.NodeValue, curt.NodeType.String(), curtIdx))
 
 		tui.stackGraph.Text = drawStack(ev.Stack)
-		tui.prev = ev
+		tui.prev = curt
 	}
 
 	tui.eventsList.Rows = events

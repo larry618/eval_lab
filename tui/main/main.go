@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/onheap/eval"
 	"github.com/onheap/eval_lab/tui"
+	"local/eval"
 )
 
 func main() {
@@ -20,8 +20,8 @@ func main() {
 	vals := map[string]interface{}{
 		"Origin":  "MOW",
 		"Country": "RU",
-		"Value":   100,
-		"Adults":  1,
+		//"Value":   100,
+		"Adults": 1,
 		//"Value":   -100,
 		//"Adults":  -1,
 	}
@@ -50,12 +50,12 @@ func main() {
 	}
 
 	t := &tui.TerminalUI{
-		Width: 170,
+		Width: 150,
 
 		Expr:          s,
 		Config:        cc,
 		Params:        vals,
-		TryEval:       false,
+		TryEval:       true,
 		SkipEventNode: true,
 	}
 

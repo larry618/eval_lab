@@ -13,7 +13,7 @@ require (
 	github.com/google/cel-go v0.12.4
 	github.com/gurkankaymak/hocon v1.2.7
 	github.com/hashicorp/go-bexpr v0.1.11
-	github.com/onheap/eval v1.0.1-0.20221007155137-59943e396caf
+	github.com/onheap/eval v1.0.0
 	github.com/robertkrimen/otto v0.0.0-20221025135307-511d75fba9f8
 	github.com/skx/evalfilter/v2 v2.1.19
 	go.starlark.net v0.0.0-20221028183056-acb66ad56dd2

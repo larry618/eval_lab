@@ -7,6 +7,10 @@ The tests in this folder are to compare the performance of local version with th
 Get the latest commits from the main branch
 ```
 go get github.com/onheap/eval@main
+
+or
+
+go get github.com/onheap/eval@commit_id
 ```
 
 Run benchmark tests
