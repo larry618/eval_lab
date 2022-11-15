@@ -206,7 +206,7 @@ func (tui *TerminalUI) handleExecEvent() bool {
 		}
 
 		if steps := curt.CurtIdx - prev.CurtIdx; steps > minSteps {
-			events = append(events, fmt.Sprintf("[%3d] [Short Circuit](bg:red): [%v] jump to [%v] ", len(events), prev.NodeValue, curt))
+			events = append(events, fmt.Sprintf("[%3d] [Short Circuit](bg:red): [%v] jump to [%v] ", len(events), prev.NodeValue, curt.NodeValue))
 		}
 
 		events = append(events, fmt.Sprintf("[%3d] Execute Node: [%v], type:[%s], idx:[%d] ", len(events), curt.NodeValue, curt.NodeType.String(), curtIdx))
