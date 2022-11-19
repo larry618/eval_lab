@@ -16,7 +16,7 @@ func (o *GAOptimizer) Evaluate() (float64, error) {
 }
 
 func (o *GAOptimizer) Mutate(rng *rand.Rand) {
-	eaopt.MutNormalFloat64(o.Costs, 0.6, rng)
+	eaopt.MutNormalFloat64(o.Costs, 0.5, rng)
 }
 
 func (o *GAOptimizer) Crossover(genome eaopt.Genome, rng *rand.Rand) {

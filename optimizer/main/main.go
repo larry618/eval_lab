@@ -12,7 +12,6 @@ import (
 )
 
 func main() {
-
 	const size = 10000
 
 	rules, err := rule.LoadRules()
@@ -28,7 +27,10 @@ func main() {
 
 	config := rule.CompileConfig()
 
-	executor := optimizer.NewExecutor(config, rules, ctxes)
+	executor, err := optimizer.NewExecutor(config, rules, ctxes)
+	if err != nil {
+		panic(err)
+	}
 	initCosts := executor.GetInitCosts()
 
 	count, err := executor.Exec(initCosts)
@@ -49,7 +51,7 @@ func main() {
 	}
 
 	// Set the number of generations to run for
-	ga.NGenerations = 10
+	ga.NGenerations = 30
 
 	// Add a custom print function to track progress
 	ga.Callback = o.Callback
@@ -61,5 +63,9 @@ func main() {
 	}
 
 	finalCosts := ga.HallOfFame[0].Genome.(*optimizer.GAOptimizer).Costs
-	common.PrintJson(executor.CostsMap(finalCosts))
+	common.PrintJson(executor.ToCostsMap(finalCosts))
+
+	//for k := range executor.ToCostsMap(finalCosts) {
+	//	fmt.Printf("final `%s`\n", k)
+	//}
 }
