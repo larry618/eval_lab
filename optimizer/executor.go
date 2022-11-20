@@ -15,6 +15,8 @@ type Executor struct {
 	ctxes []*eval.Ctx
 
 	indexMap map[string]int
+
+	Callback func(costs []float64, score float64)
 }
 
 func NewExecutor(
@@ -44,7 +46,8 @@ func (e *Executor) initIndexMap() error {
 
 	e.indexMap = indexMap
 
-	err := e.initCostIdentifiers()
+	var err error
+	//err := e.initCostIdentifiers()
 	return err
 }
 
@@ -193,6 +196,14 @@ func (e *Executor) ToCostsMap(costs []float64) map[string]float64 {
 	return res
 }
 
+func (e *Executor) ExecPanicErr(costs []float64) float64 {
+	res, err := e.Exec(costs)
+	if err != nil {
+		panic(err)
+	}
+	return res
+}
+
 func (e *Executor) Exec(costs []float64) (float64, error) {
 	t := e.newTask(costs)
 	err := t.init()
@@ -206,7 +217,12 @@ func (e *Executor) Exec(costs []float64) (float64, error) {
 	}
 
 	t.clean()
-	return float64(t.counter), nil
+	res := float64(t.counter)
+
+	if e.Callback != nil {
+		e.Callback(costs, res)
+	}
+	return res, nil
 }
 
 func (e *Executor) newTask(costs []float64) *task {
