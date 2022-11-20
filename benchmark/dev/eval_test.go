@@ -1,20 +1,20 @@
-package local
+package dev
 
 import (
 	"strconv"
 	"testing"
 
+	evaldev "dev/eval"
 	evalmain "github.com/onheap/eval"
 	"github.com/onheap/eval_lab/benchmark"
-	evalloc "local/eval"
 )
 
-func BenchmarkEvalLocal(b *testing.B) {
+func BenchmarkEvalDev(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
+	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params))
 
-	ctx := evalloc.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxWithMap(cc, params)
 
 	s := `
 (and
@@ -26,9 +26,9 @@ func BenchmarkEvalLocal(b *testing.B) {
    (= Adults 1)))
 `
 
-	program, err := evalloc.Compile(cc, s)
+	program, err := evaldev.Compile(cc, s)
 
-	var out evalloc.Value
+	var out evaldev.Value
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
@@ -93,12 +93,12 @@ func BenchmarkItoa(b *testing.B) {
 	}
 }
 
-func BenchmarkEvalLocal1(b *testing.B) {
+func BenchmarkEvalDev1(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
+	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params))
 
-	ctx := evalloc.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxWithMap(cc, params)
 
 	s := `
 (and
@@ -110,9 +110,9 @@ func BenchmarkEvalLocal1(b *testing.B) {
    (= Adults 1)))
 `
 
-	program, err := evalloc.Compile(cc, s)
+	program, err := evaldev.Compile(cc, s)
 
-	var out evalloc.Value
+	var out evaldev.Value
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {

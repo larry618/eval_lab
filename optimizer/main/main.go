@@ -2,13 +2,13 @@ package main
 
 import (
 	"context"
+	"dev/eval"
 	"fmt"
 	"github.com/MaxHalford/eaopt"
 	"github.com/onheap/eval_lab/common"
 	"github.com/onheap/eval_lab/data/model"
 	"github.com/onheap/eval_lab/data/rule"
 	"github.com/onheap/eval_lab/optimizer"
-	"local/eval"
 )
 
 func main() {

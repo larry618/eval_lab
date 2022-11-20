@@ -1,17 +1,17 @@
-package local
+package dev
 
 import (
 	"testing"
 
+	evaldev "dev/eval"
 	evalmain "github.com/onheap/eval"
 	"github.com/onheap/eval_lab/benchmark"
-	evalloc "local/eval"
 )
 
-func BenchmarkCompileLocal(b *testing.B) {
+func BenchmarkCompileDev(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
+	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params))
 
 	s := `
 (and
@@ -23,18 +23,18 @@ func BenchmarkCompileLocal(b *testing.B) {
    (= Adults 1)))
 `
 
-	var program *evalloc.Expr
+	var program *evaldev.Expr
 	var err error
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
-		program, err = evalloc.Compile(cc, s)
+		program, err = evaldev.Compile(cc, s)
 	}
 	b.StopTimer()
 
 	if err != nil {
 		b.Fatal(err)
 	}
-	ctx := evalloc.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxWithMap(cc, params)
 	out, err := program.Eval(ctx)
 
 	if err != nil {
@@ -84,10 +84,10 @@ func BenchmarkCompileMain(b *testing.B) {
 	}
 }
 
-func BenchmarkCompileLocal1(b *testing.B) {
+func BenchmarkCompileDev1(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
+	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params))
 
 	s := `
 (and
@@ -99,18 +99,18 @@ func BenchmarkCompileLocal1(b *testing.B) {
    (= Adults 1)))
 `
 
-	var program *evalloc.Expr
+	var program *evaldev.Expr
 	var err error
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
-		program, err = evalloc.Compile(cc, s)
+		program, err = evaldev.Compile(cc, s)
 	}
 	b.StopTimer()
 
 	if err != nil {
 		b.Fatal(err)
 	}
-	ctx := evalloc.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxWithMap(cc, params)
 	out, err := program.Eval(ctx)
 
 	if err != nil {

@@ -1,26 +1,26 @@
-package local
+package dev
 
 import (
+	evaldev "dev/eval"
 	evalmain "github.com/onheap/eval"
 	"github.com/onheap/eval_lab/benchmark"
-	evalloc "local/eval"
 	"testing"
 )
 
-func BenchmarkEventEvalLocal(b *testing.B) {
-	eventChan := make(chan evalloc.Event, 1024)
+func BenchmarkEventEvalDev(b *testing.B) {
+	eventChan := make(chan evaldev.Event, 1024)
 	go func() {
 		for range eventChan {
 
 		}
 	}()
-	eventChan <- evalloc.Event{} // wait channel ready
+	eventChan <- evaldev.Event{} // wait channel ready
 
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params), evalloc.EnableReportEvent)
+	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params), evaldev.EnableReportEvent)
 
-	ctx := evalloc.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxWithMap(cc, params)
 
 	s := `
 (and
@@ -32,10 +32,10 @@ func BenchmarkEventEvalLocal(b *testing.B) {
    (= Adults 1)))
 `
 
-	program, err := evalloc.Compile(cc, s)
+	program, err := evaldev.Compile(cc, s)
 	program.EventChan = eventChan
 
-	var out evalloc.Value
+	var out evaldev.Value
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {

@@ -1,18 +1,18 @@
-package local
+package dev
 
 import (
+	evaldev "dev/eval"
 	evalmain "github.com/onheap/eval"
 	"github.com/onheap/eval_lab/benchmark"
-	evalloc "local/eval"
 	"testing"
 )
 
-func BenchmarkEvalLocal2(b *testing.B) {
+func BenchmarkEvalDev2(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
+	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params))
 
-	ctx := evalloc.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxWithMap(cc, params)
 
 	s := `
 (and
@@ -24,9 +24,9 @@ func BenchmarkEvalLocal2(b *testing.B) {
    (= Adults 1)))
 `
 
-	program, err := evalloc.Compile(cc, s)
+	program, err := evaldev.Compile(cc, s)
 
-	var out evalloc.Value
+	var out evaldev.Value
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
@@ -77,12 +77,12 @@ func BenchmarkEvalMain2(b *testing.B) {
 	}
 }
 
-func BenchmarkEvalLocal3(b *testing.B) {
+func BenchmarkEvalDev3(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
+	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params))
 
-	ctx := evalloc.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxWithMap(cc, params)
 
 	s := `
 (and
@@ -94,9 +94,9 @@ func BenchmarkEvalLocal3(b *testing.B) {
    (= Adults 1)))
 `
 
-	program, err := evalloc.Compile(cc, s)
+	program, err := evaldev.Compile(cc, s)
 
-	var out evalloc.Value
+	var out evaldev.Value
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
@@ -147,12 +147,12 @@ func BenchmarkEvalMain3(b *testing.B) {
 	}
 }
 
-func BenchmarkEvalLocal4(b *testing.B) {
+func BenchmarkEvalDev4(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
+	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params))
 
-	ctx := evalloc.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxWithMap(cc, params)
 
 	s := `
 (and
@@ -164,9 +164,9 @@ func BenchmarkEvalLocal4(b *testing.B) {
    (= Adults 1)))
 `
 
-	program, err := evalloc.Compile(cc, s)
+	program, err := evaldev.Compile(cc, s)
 
-	var out evalloc.Value
+	var out evaldev.Value
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
@@ -217,12 +217,12 @@ func BenchmarkEvalMain4(b *testing.B) {
 	}
 }
 
-func BenchmarkEvalLocal5(b *testing.B) {
+func BenchmarkEvalDev5(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
+	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params))
 
-	ctx := evalloc.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxWithMap(cc, params)
 
 	s := `
 (and
@@ -234,9 +234,9 @@ func BenchmarkEvalLocal5(b *testing.B) {
    (= Adults 1)))
 `
 
-	program, err := evalloc.Compile(cc, s)
+	program, err := evaldev.Compile(cc, s)
 
-	var out evalloc.Value
+	var out evaldev.Value
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
@@ -287,12 +287,12 @@ func BenchmarkEvalMain5(b *testing.B) {
 	}
 }
 
-func BenchmarkEvalLocal6(b *testing.B) {
+func BenchmarkEvalDev6(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
+	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params))
 
-	ctx := evalloc.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxWithMap(cc, params)
 
 	s := `
 (and
@@ -304,9 +304,9 @@ func BenchmarkEvalLocal6(b *testing.B) {
    (= Adults 1)))
 `
 
-	program, err := evalloc.Compile(cc, s)
+	program, err := evaldev.Compile(cc, s)
 
-	var out evalloc.Value
+	var out evaldev.Value
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
@@ -357,12 +357,12 @@ func BenchmarkEvalMain6(b *testing.B) {
 	}
 }
 
-func BenchmarkEvalLocal7(b *testing.B) {
+func BenchmarkEvalDev7(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
+	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params))
 
-	ctx := evalloc.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxWithMap(cc, params)
 
 	s := `
 (and
@@ -374,9 +374,9 @@ func BenchmarkEvalLocal7(b *testing.B) {
    (= Adults 1)))
 `
 
-	program, err := evalloc.Compile(cc, s)
+	program, err := evaldev.Compile(cc, s)
 
-	var out evalloc.Value
+	var out evaldev.Value
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
@@ -427,12 +427,12 @@ func BenchmarkEvalMain7(b *testing.B) {
 	}
 }
 
-func BenchmarkEvalLocal8(b *testing.B) {
+func BenchmarkEvalDev8(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
+	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params))
 
-	ctx := evalloc.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxWithMap(cc, params)
 
 	s := `
 (and
@@ -444,9 +444,9 @@ func BenchmarkEvalLocal8(b *testing.B) {
    (= Adults 1)))
 `
 
-	program, err := evalloc.Compile(cc, s)
+	program, err := evaldev.Compile(cc, s)
 
-	var out evalloc.Value
+	var out evaldev.Value
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
@@ -497,12 +497,12 @@ func BenchmarkEvalMain8(b *testing.B) {
 	}
 }
 
-func BenchmarkEvalLocal9(b *testing.B) {
+func BenchmarkEvalDev9(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalloc.NewCompileConfig(evalloc.RegisterVals(params))
+	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params))
 
-	ctx := evalloc.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxWithMap(cc, params)
 
 	s := `
 (and
@@ -514,9 +514,9 @@ func BenchmarkEvalLocal9(b *testing.B) {
    (= Adults 1)))
 `
 
-	program, err := evalloc.Compile(cc, s)
+	program, err := evaldev.Compile(cc, s)
 
-	var out evalloc.Value
+	var out evaldev.Value
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {

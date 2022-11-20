@@ -18,7 +18,7 @@ require (
 	github.com/skx/evalfilter/v2 v2.1.19
 	go.starlark.net v0.0.0-20221028183056-acb66ad56dd2
 	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9
-	local/eval v1.0.0
+	dev/eval v1.0.0
 )
 
 require (
@@ -39,4 +39,4 @@ require (
 	gopkg.in/sourcemap.v1 v1.0.5 // indirect
 )
 
-replace local/eval v1.0.0 => ../eval
+replace dev/eval v1.0.0 => ../eval

@@ -2,10 +2,10 @@ package main
 
 import (
 	"context"
+	"dev/eval"
 	"fmt"
 	"github.com/onheap/eval_lab/data/model"
 	"github.com/onheap/eval_lab/data/rule"
-	"local/eval"
 )
 
 const size = 10000

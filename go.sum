@@ -111,8 +111,6 @@ github.com/nsf/termbox-go v0.0.0-20190121233118-02980233997d h1:x3S6kxmy49zXVVyh
 github.com/nsf/termbox-go v0.0.0-20190121233118-02980233997d/go.mod h1:IuKpRQcYE1Tfu+oAQqaLisqDeXgjyyltCfsaoYN18NQ=
 github.com/onheap/eval v1.0.0 h1:WTTT8AkqVjYpdiDLEZWiTeleH/nohpDdiyMOfM00eEA=
 github.com/onheap/eval v1.0.0/go.mod h1:AQAqpig+YezU+pTC7sdHegxVwMQO+Q6U4F2OWtDM9us=
-github.com/onheap/eval v1.0.1-0.20221007155137-59943e396caf h1:K3pRRnTJrtsp6oVpmHsXoimgVP/g3Ia026Zs+y2keHo=
-github.com/onheap/eval v1.0.1-0.20221007155137-59943e396caf/go.mod h1:AQAqpig+YezU+pTC7sdHegxVwMQO+Q6U4F2OWtDM9us=
 github.com/pmezard/go-difflib v0.0.0-20151028094244-d8ed2627bdf0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=

@@ -1,4 +1,4 @@
-# Benchmark Local
+# Benchmark Dev
 
 The tests in this folder are to compare the performance of local version with the latest remote version.
 
@@ -18,7 +18,7 @@ Run benchmark tests
 go test -bench=. -run=none -benchtime=3s -benchmem
 go test -bench='BenchmarkEval' -run=none -benchtime=3s -benchmem
 
-go test -bench='BenchmarkEvalLocal' -run=none -benchtime=3s -benchmem -memprofile profile.out
+go test -bench='BenchmarkEvalDev' -run=none -benchtime=3s -benchmem -memprofile profile.out
 go tool pprof -http=:8080 profile.out
 ```
 

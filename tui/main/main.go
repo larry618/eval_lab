@@ -1,8 +1,8 @@
 package main
 
 import (
+	"dev/eval"
 	"github.com/onheap/eval_lab/tui"
-	"local/eval"
 )
 
 func main() {

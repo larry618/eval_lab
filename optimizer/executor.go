@@ -1,7 +1,7 @@
 package optimizer
 
 import (
-	"local/eval"
+	"dev/eval"
 	"sync"
 	"sync/atomic"
 
