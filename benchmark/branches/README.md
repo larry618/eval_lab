@@ -1,4 +1,4 @@
-# Benchmark Dev
+# Benchmark Branches
 
 The tests in this folder are to compare the performance of local version with the latest remote version.
 

@@ -1,4 +1,4 @@
-package dev
+package branches
 
 import (
 	evaldev "dev/eval"
@@ -7,18 +7,10 @@ import (
 	"testing"
 )
 
-func BenchmarkEventEvalDev(b *testing.B) {
-	eventChan := make(chan evaldev.Event, 1024)
-	go func() {
-		for range eventChan {
-
-		}
-	}()
-	eventChan <- evaldev.Event{} // wait channel ready
-
+func BenchmarkTryEvalDev(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params), evaldev.EnableReportEvent)
+	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params))
 
 	ctx := evaldev.NewCtxWithMap(cc, params)
 
@@ -33,13 +25,12 @@ func BenchmarkEventEvalDev(b *testing.B) {
 `
 
 	program, err := evaldev.Compile(cc, s)
-	program.EventChan = eventChan
 
 	var out evaldev.Value
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
-		out, err = program.Eval(ctx)
+		out, err = program.TryEval(ctx)
 	}
 	b.StopTimer()
 
@@ -51,18 +42,10 @@ func BenchmarkEventEvalDev(b *testing.B) {
 	}
 }
 
-func BenchmarkEventEvalMain(b *testing.B) {
-
-	eventChan := make(chan evalmain.Event, 1024)
-	go func() {
-		for range eventChan {
-		}
-	}()
-	eventChan <- evalmain.Event{} // wait channel ready
-
+func BenchmarkTryEvalMain(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalmain.NewCompileConfig(evalmain.RegisterVals(params), evalmain.EnableReportEvent)
+	cc := evalmain.NewCompileConfig(evalmain.RegisterVals(params))
 
 	ctx := evalmain.NewCtxWithMap(cc, params)
 
@@ -77,13 +60,12 @@ func BenchmarkEventEvalMain(b *testing.B) {
 `
 
 	program, err := evalmain.Compile(cc, s)
-	program.EventChan = eventChan
 
 	var out evalmain.Value
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
-		out, err = program.Eval(ctx)
+		out, err = program.TryEval(ctx)
 	}
 	b.StopTimer()
 

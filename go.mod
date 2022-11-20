@@ -40,3 +40,4 @@ require (
 )
 
 replace dev/eval v1.0.0 => ../eval
+//replace dev/eval v1.0.0 => github.com/onheap/eval
