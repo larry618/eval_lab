@@ -29,9 +29,12 @@ func main() {
 	}
 
 	config := rule.CompileConfig()
-	config.CompileOptions[eval.ContextBasedReordering] = false
+	config.CompileOptions[eval.ContextBasedReordering] = true
 
 	executor, err := optimizer.NewExecutor(config, rules, ctxes)
+	if err != nil {
+		panic(err)
+	}
 
 	var execution int64
 	var min int64 = math.MaxInt64
@@ -47,9 +50,6 @@ func main() {
 			atomic.LoadInt64(&execution), curt, atomic.LoadInt64(&min))
 	}
 
-	if err != nil {
-		panic(err)
-	}
 	initCosts := executor.GetInitCosts()
 
 	count, err := executor.Exec(initCosts)
