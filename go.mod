@@ -3,6 +3,7 @@ module github.com/onheap/eval_lab
 go 1.18
 
 require (
+	dev/eval v1.0.0
 	github.com/Knetic/govaluate v3.0.0+incompatible
 	github.com/MaxHalford/eaopt v0.4.2
 	github.com/PaesslerAG/gval v1.2.1
@@ -13,12 +14,11 @@ require (
 	github.com/google/cel-go v0.12.4
 	github.com/gurkankaymak/hocon v1.2.7
 	github.com/hashicorp/go-bexpr v0.1.11
-	github.com/onheap/eval v1.0.0
+	github.com/onheap/eval v1.1.0
 	github.com/robertkrimen/otto v0.0.0-20221025135307-511d75fba9f8
 	github.com/skx/evalfilter/v2 v2.1.19
 	go.starlark.net v0.0.0-20221028183056-acb66ad56dd2
 	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9
-	dev/eval v1.0.0
 )
 
 require (
@@ -40,4 +40,5 @@ require (
 )
 
 replace dev/eval v1.0.0 => ../eval
+
 //replace dev/eval v1.0.0 => github.com/onheap/eval

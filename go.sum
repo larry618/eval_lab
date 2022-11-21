@@ -109,8 +109,8 @@ github.com/mitchellh/pointerstructure v1.2.1 h1:ZhBBeX8tSlRpu/FFhXH4RC4OJzFlqsQh
 github.com/mitchellh/pointerstructure v1.2.1/go.mod h1:BRAsLI5zgXmw97Lf6s25bs8ohIXc3tViBH44KcwB2g4=
 github.com/nsf/termbox-go v0.0.0-20190121233118-02980233997d h1:x3S6kxmy49zXVVyhcnrFqxvNVCBPb2KZ9hV2RBdS840=
 github.com/nsf/termbox-go v0.0.0-20190121233118-02980233997d/go.mod h1:IuKpRQcYE1Tfu+oAQqaLisqDeXgjyyltCfsaoYN18NQ=
-github.com/onheap/eval v1.0.0 h1:WTTT8AkqVjYpdiDLEZWiTeleH/nohpDdiyMOfM00eEA=
-github.com/onheap/eval v1.0.0/go.mod h1:AQAqpig+YezU+pTC7sdHegxVwMQO+Q6U4F2OWtDM9us=
+github.com/onheap/eval v1.1.0 h1:I8kQkfk4NPp1eC+eRPUcXk9JB9f74YmYACB8Ieyj+B4=
+github.com/onheap/eval v1.1.0/go.mod h1:AQAqpig+YezU+pTC7sdHegxVwMQO+Q6U4F2OWtDM9us=
 github.com/pmezard/go-difflib v0.0.0-20151028094244-d8ed2627bdf0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
