@@ -1,4 +1,4 @@
-package common
+package tool
 
 import (
 	"encoding/json"
@@ -34,4 +34,10 @@ func PrintStringKeyMap[T any](m map[string]T) {
 	sb.WriteString("}")
 
 	fmt.Println(sb.String())
+}
+
+func PanicErr(err error) {
+	if err != nil {
+		panic(err)
+	}
 }

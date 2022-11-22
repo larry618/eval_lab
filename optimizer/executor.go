@@ -34,7 +34,7 @@ func NewExecutor(
 	return e, err
 }
 
-func (e *Executor) initIndexMap() error {
+func (e *Executor) initIndexMap() (err error) {
 	indexMap := make(map[string]int)
 	for s := range e.cc.SelectorMap {
 		indexMap[s] = len(indexMap)
@@ -46,9 +46,8 @@ func (e *Executor) initIndexMap() error {
 
 	e.indexMap = indexMap
 
-	var err error
-	//err := e.initCostIdentifiers()
-	return err
+	err = e.initCostIdentifiers()
+	return
 }
 
 func (e *Executor) initCostIdentifiers() error {
@@ -186,6 +185,10 @@ func (e *Executor) GetInitCosts() []float64 {
 		initCosts[i] = c
 	}
 	return initCosts
+}
+
+func (e *Executor) GetIndexMap() map[string]int {
+	return e.indexMap
 }
 
 func (e *Executor) ToCostsMap(costs []float64) map[string]float64 {

@@ -1,7 +1,7 @@
 package model
 
 import (
-	"github.com/onheap/eval_lab/common"
+	"github.com/onheap/eval_lab/tool"
 	"testing"
 )
 
@@ -10,6 +10,6 @@ func TestGenerate(t *testing.T) {
 
 	for i := 0; i < 10; i++ {
 		u := g.GenUser()
-		common.PrintJson(u)
+		tool.PrintJson(u)
 	}
 }
