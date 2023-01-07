@@ -2,11 +2,11 @@ package rule
 
 import (
 	"context"
-	"dev/eval"
 	"math"
 	"time"
 
 	"github.com/gurkankaymak/hocon"
+	"github.com/onheap/eval"
 	"github.com/onheap/eval_lab/data/model"
 )
 

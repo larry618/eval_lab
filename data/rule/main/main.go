@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
-	"dev/eval"
 	"fmt"
+	"github.com/onheap/eval"
 	"github.com/onheap/eval_lab/data/model"
 	"github.com/onheap/eval_lab/data/rule"
 )

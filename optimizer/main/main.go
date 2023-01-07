@@ -2,18 +2,19 @@ package main
 
 import (
 	"context"
-	"dev/eval"
 	"fmt"
+	"math"
+	"sync/atomic"
+
+	"github.com/onheap/eval"
 	"github.com/onheap/eval_lab/data/model"
 	"github.com/onheap/eval_lab/data/rule"
 	"github.com/onheap/eval_lab/optimizer"
 	"github.com/onheap/eval_lab/tool"
-	"math"
-	"sync/atomic"
 )
 
 func main() {
-	executor := initRuleAndExecutor(true)
+	executor := initRuleAndExecutor(false)
 
 	initCosts := executor.GetInitCosts()
 
@@ -24,7 +25,7 @@ func main() {
 
 	fmt.Println("initial execution count:", count)
 
-	finalCosts, min := optimizer.GopTuna(executor)
+	finalCosts, min := optimizer.GaOpt(executor)
 
 	fmt.Println("min", min)
 
@@ -46,8 +47,6 @@ func initRuleAndExecutor(callback bool) *optimizer.Executor {
 	}
 
 	config := rule.CompileConfig()
-	config.CompileOptions[eval.ContextBasedReordering] = true
-
 	executor, err := optimizer.NewExecutor(config, rules, ctxes)
 	if err != nil {
 		panic(err)

@@ -1,12 +1,13 @@
 package tui
 
 import (
-	"dev/eval"
 	"fmt"
-	ui "github.com/gizak/termui/v3"
-	"github.com/gizak/termui/v3/widgets"
 	"strings"
 	"time"
+
+	ui "github.com/gizak/termui/v3"
+	"github.com/gizak/termui/v3/widgets"
+	"github.com/onheap/eval"
 )
 
 func (tui *TerminalUI) Start() {

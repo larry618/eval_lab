@@ -1,20 +1,20 @@
 package main
 
 import (
-	"dev/eval"
+	"github.com/onheap/eval"
 	"github.com/onheap/eval_lab/tui"
 )
 
 func main() {
 
-	//	s := `
-	//(and
-	// (or
-	//   (= Origin "MOW1") (= Country "RU"))
-	// (or (>= Value (+ 33 67)) (= Adults 1)))
-	//`
+	s := `
+	(and
+	(or
+	  (= Origin "MOW1") (= Country "RU"))
+	(or (>= Value (+ 33 67)) (= Adults 1)))
+	`
 
-	s := `(and (> Adults 1) (now))`
+	//s := `(and (> Adults 1) (now))`
 
 	//vals := benchmark.CreateParams()
 	//cc := eval.NewCompileConfig(eval.RegisterVals(vals), eval.EnableReportEvent, eval.Optimizations(false))
