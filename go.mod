@@ -20,13 +20,19 @@ require (
 	github.com/skx/evalfilter/v2 v2.1.19
 	go.starlark.net v0.0.0-20221028183056-acb66ad56dd2
 	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9
+	gorm.io/driver/sqlite v1.1.4
+	gorm.io/gorm v1.20.12
 )
 
 require (
 	github.com/antlr/antlr4/runtime/Go/antlr v0.0.0-20220418222510-f25a4f6275ed // indirect
 	github.com/dlclark/regexp2 v1.7.0 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.3+incompatible // indirect
+	github.com/google/uuid v1.1.5 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.1 // indirect
 	github.com/mattn/go-runewidth v0.0.8 // indirect
+	github.com/mattn/go-sqlite3 v1.14.5 // indirect
 	github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7 // indirect
 	github.com/mitchellh/mapstructure v1.4.1 // indirect
 	github.com/mitchellh/pointerstructure v1.2.1 // indirect
