@@ -73,6 +73,9 @@ func ToEvalCtx(ctx context.Context, u *model.User) *eval.Ctx {
 
 func CompileConfig() *eval.CompileConfig {
 	return &eval.CompileConfig{
+		CostsMap:       make(map[string]float64),
+		CompileOptions: make(map[eval.Option]bool),
+
 		ConstantMap:        ConstantMap(),
 		SelectorMap:        SelectorMap(),
 		OperatorMap:        OperatorMap(),

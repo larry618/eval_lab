@@ -7,12 +7,14 @@ import (
 
 func main() {
 
-	s := `
-(and
- (or
-   (= Origin "MOW1") (= Country "RU"))  
- (or (>= Value (+ 33 67)) (= Adults 1)))
-`
+	//	s := `
+	//(and
+	// (or
+	//   (= Origin "MOW1") (= Country "RU"))
+	// (or (>= Value (+ 33 67)) (= Adults 1)))
+	//`
+
+	s := `(and (> Adults 1) (now))`
 
 	//vals := benchmark.CreateParams()
 	//cc := eval.NewCompileConfig(eval.RegisterVals(vals), eval.EnableReportEvent, eval.Optimizations(false))
@@ -46,6 +48,9 @@ func main() {
 			//"Origin": 100,
 			//"Value":  -100,
 			//"Adults": -100,
+		},
+		OperatorMap: map[string]eval.Operator{
+			"now": nil,
 		},
 	}
 

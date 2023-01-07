@@ -4,15 +4,34 @@ import (
 	"context"
 	"dev/eval"
 	"fmt"
-	"github.com/MaxHalford/eaopt"
-	"github.com/onheap/eval_lab/common"
 	"github.com/onheap/eval_lab/data/model"
 	"github.com/onheap/eval_lab/data/rule"
 	"github.com/onheap/eval_lab/optimizer"
+	"github.com/onheap/eval_lab/tool"
+	"math"
+	"sync/atomic"
 )
 
 func main() {
+	executor := initRuleAndExecutor(true)
 
+	initCosts := executor.GetInitCosts()
+
+	count, err := executor.Exec(initCosts)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("initial execution count:", count)
+
+	finalCosts, min := optimizer.GopTuna(executor)
+
+	fmt.Println("min", min)
+
+	tool.PrintStringKeyMap(executor.ToCostsMap(finalCosts))
+}
+
+func initRuleAndExecutor(callback bool) *optimizer.Executor {
 	const size = 10000
 
 	rules, err := rule.LoadRules()
@@ -27,39 +46,28 @@ func main() {
 	}
 
 	config := rule.CompileConfig()
+	config.CompileOptions[eval.ContextBasedReordering] = true
 
-	executor := optimizer.NewExecutor(config, rules, ctxes)
-	initCosts := executor.GetInitCosts()
-
-	count, err := executor.Exec(initCosts)
+	executor, err := optimizer.NewExecutor(config, rules, ctxes)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println("initial execution count:", count)
+	if callback {
+		var execution int64
+		var min int64 = math.MaxInt64
+		executor.Callback = func(_ []float64, score float64) {
+			curt := int64(score)
+			if curt < atomic.LoadInt64(&min) {
+				atomic.StoreInt64(&min, curt)
+			}
 
-	o := &optimizer.GAOptimizer{
-		Executor: executor,
-		Costs:    initCosts,
+			atomic.AddInt64(&execution, 1)
+			fmt.Printf(
+				"[exec callback] No:%5d, curt: %6d, min: %6d\n",
+				atomic.LoadInt64(&execution), curt, atomic.LoadInt64(&min))
+		}
 	}
 
-	ga, err := eaopt.NewDefaultGAConfig().NewGA()
-	if err != nil {
-		panic(err)
-	}
-
-	// Set the number of generations to run for
-	ga.NGenerations = 10
-
-	// Add a custom print function to track progress
-	ga.Callback = o.Callback
-
-	// Find the minimum
-	err = ga.Minimize(o.Factory)
-	if err != nil {
-		panic(err)
-	}
-
-	finalCosts := ga.HallOfFame[0].Genome.(*optimizer.GAOptimizer).Costs
-	common.PrintJson(executor.CostsMap(finalCosts))
+	return executor
 }
