@@ -7,7 +7,7 @@ require (
 	github.com/Knetic/govaluate v3.0.0+incompatible
 	github.com/MaxHalford/eaopt v0.4.2
 	github.com/PaesslerAG/gval v1.2.1
-	github.com/antonmedv/expr v1.9.0
+	github.com/antonmedv/expr v1.10.5
 	github.com/brianvoe/gofakeit/v6 v6.19.0
 	github.com/c-bata/goptuna v0.8.1
 	github.com/dop251/goja v0.0.0-20221025165401-cb5011b539fe
@@ -15,7 +15,7 @@ require (
 	github.com/google/cel-go v0.12.4
 	github.com/gurkankaymak/hocon v1.2.7
 	github.com/hashicorp/go-bexpr v0.1.11
-	github.com/onheap/eval v1.1.0
+	github.com/onheap/eval v1.2.0
 	github.com/robertkrimen/otto v0.0.0-20221025135307-511d75fba9f8
 	github.com/skx/evalfilter/v2 v2.1.19
 	go.starlark.net v0.0.0-20221028183056-acb66ad56dd2
@@ -47,6 +47,6 @@ require (
 	gopkg.in/sourcemap.v1 v1.0.5 // indirect
 )
 
-//replace dev/eval v1.0.0 => ../eval
+replace dev/eval v1.0.0 => ../eval
 
-replace dev/eval v1.0.0 => github.com/onheap/eval v1.1.1-0.20221120075815-058c9a1cc340
+//replace dev/eval v1.0.0 => github.com/onheap/eval v1.1.1-0.20221120075815-058c9a1cc340

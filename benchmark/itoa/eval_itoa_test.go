@@ -1,6 +1,7 @@
-package projects
+package itoa
 
 import (
+	"strconv"
 	"testing"
 
 	"github.com/onheap/eval"
@@ -42,7 +43,7 @@ func Benchmark_eval(b *testing.B) {
 	}
 }
 
-func Benchmark_tryEval(b *testing.B) {
+func _Benchmark_tryEval(b *testing.B) {
 	params := benchmark.CreateParams()
 
 	cc := eval.NewConfig(eval.RegVarAndOp(params))
@@ -74,5 +75,19 @@ func Benchmark_tryEval(b *testing.B) {
 	}
 	if !out.(bool) {
 		b.Fail()
+	}
+}
+
+func Benchmark_itoa(b *testing.B) {
+	var out interface{}
+	b.ResetTimer()
+
+	for n := 0; n < b.N; n++ {
+		out = strconv.Itoa(12345678)
+	}
+	b.StopTimer()
+
+	if out == nil {
+		b.Fatal(out)
 	}
 }

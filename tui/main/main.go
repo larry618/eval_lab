@@ -8,10 +8,12 @@ import (
 func main() {
 
 	s := `
-	(and
-	(or
-	  (= Origin "MOW1") (= Country "RU"))
-	(or (>= Value (+ 33 67)) (= Adults 1)))
+   (and
+        (or
+          (>= credit Good)   ;; cost 100
+          (overlap ("top" "high_value") user_tags))
+        (not
+          (in "F" user_tags)))
 	`
 
 	//s := `(and (> Adults 1) (now))`
@@ -22,32 +24,30 @@ func main() {
 	vals := map[string]interface{}{
 		"Origin":  "MOW",
 		"Country": "RU",
-		//"Value":   100,
-		"Adults": 1,
+		"Value":   100,
+		"Adults":  1,
 		//"Value":   -100,
 		//"Adults":  -1,
 	}
 
-	cc := &eval.CompileConfig{
-		SelectorMap: map[string]eval.SelectorKey{
-			"Origin":  eval.SelectorKey(0),
-			"Country": eval.SelectorKey(1),
-			"Value":   eval.SelectorKey(2),
-			"Adults":  eval.SelectorKey(3),
+	cc := &eval.Config{
+		VariableKeyMap: map[string]eval.VariableKey{
+			"Origin":  eval.VariableKey(0),
+			"Country": eval.VariableKey(1),
+			"Value":   eval.VariableKey(2),
+			"Adults":  eval.VariableKey(3),
 		},
-		CompileOptions: map[eval.Option]bool{
-			eval.ReportEvent:           true, // enable debug
-			eval.AllowUnknownSelectors: true,
+		CompileOptions: map[eval.CompileOption]bool{
+			eval.ReportEvent:            true, // enable debug
+			eval.AllowUndefinedVariable: true,
 
-			eval.Reordering:      false,
+			eval.Reordering:      true,
 			eval.FastEvaluation:  true,
 			eval.ConstantFolding: true,
 			eval.ReduceNesting:   true,
 		},
 		CostsMap: map[string]float64{
-			//"Origin": 100,
-			//"Value":  -100,
-			//"Adults": -100,
+			"credit": 100,
 		},
 		OperatorMap: map[string]eval.Operator{
 			"now": nil,

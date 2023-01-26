@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	UserID eval.SelectorKey = iota
+	UserID eval.VariableKey = iota
 	Gender
 	Age
 	UserTags
@@ -42,8 +42,8 @@ const (
 func ToEvalCtx(ctx context.Context, u *model.User) *eval.Ctx {
 	return &eval.Ctx{
 		Ctx: ctx,
-		Selector: eval.SliceSelector{
-			Values: []eval.Value{
+		VariableFetcher: eval.SliceVarFetcher(
+			[]eval.Value{
 				UserID:         u.ID,
 				Gender:         int64(u.Gender),
 				Age:            int64(u.Age),
@@ -67,24 +67,24 @@ func ToEvalCtx(ctx context.Context, u *model.User) *eval.Ctx {
 				AppVersion:     u.CurrentDevice.AppVersion,
 				BirthDate:      u.BirthDate.Unix(),
 			},
-		},
+		),
 	}
 }
 
-func CompileConfig() *eval.CompileConfig {
-	return &eval.CompileConfig{
+func CompileConfig() *eval.Config {
+	return &eval.Config{
 		CostsMap:       make(map[string]float64),
-		CompileOptions: make(map[eval.Option]bool),
+		CompileOptions: make(map[eval.CompileOption]bool),
 
 		ConstantMap:        ConstantMap(),
-		SelectorMap:        SelectorMap(),
+		VariableKeyMap:     VariableKeyMap(),
 		OperatorMap:        OperatorMap(),
 		StatelessOperators: []string{"is_birthday", "distance"},
 	}
 }
 
-func SelectorMap() map[string]eval.SelectorKey {
-	return map[string]eval.SelectorKey{
+func VariableKeyMap() map[string]eval.VariableKey {
+	return map[string]eval.VariableKey{
 		"user_id":         UserID,
 		"gender":          Gender,
 		"age":             Age,

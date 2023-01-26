@@ -49,7 +49,7 @@ type TerminalUI struct {
 	Width int
 
 	Expr          string
-	Config        *eval.CompileConfig
+	Config        *eval.Config
 	Params        map[string]interface{}
 	TryEval       bool
 	SkipEventNode bool
@@ -75,7 +75,7 @@ type TerminalUI struct {
 func (tui *TerminalUI) initExpr() {
 	tui.Expr = eval.IndentByParentheses(tui.Expr)
 
-	tui.ctx = eval.NewCtxWithMap(tui.Config, tui.Params)
+	tui.ctx = eval.NewCtxFromVars(tui.Config, tui.Params)
 
 	expr, err := eval.Compile(tui.Config, tui.Expr)
 	if err != nil {
@@ -102,7 +102,7 @@ func (tui *TerminalUI) initTui() {
 	leftGraph.SetRect(0, 0, width/2, height)
 
 	rightGraph := widgets.NewParagraph()
-	rightGraph.Title = "Compiled Expression"
+	rightGraph.Title = "Decompiled Expression"
 	rightGraph.Text = eval.Dump(tui.expr)
 	rightGraph.SetRect(width/2+1, 0, width, height)
 
@@ -229,7 +229,6 @@ func drawStack(stack []eval.Value) string {
 	for i := 0; i < 8-len(stack); i++ {
 		sb.WriteString("│       │\n")
 	}
-
 	for i := len(stack) - 1; i >= 0; i-- {
 		sb.WriteString(fmt.Sprintf("│ %5v │\n", stack[i]))
 	}

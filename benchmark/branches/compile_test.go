@@ -11,7 +11,7 @@ import (
 func BenchmarkCompileDev(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params))
+	cc := evaldev.NewConfig(evaldev.RegVarAndOp(params))
 
 	s := `
 (and
@@ -34,7 +34,7 @@ func BenchmarkCompileDev(b *testing.B) {
 	if err != nil {
 		b.Fatal(err)
 	}
-	ctx := evaldev.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxFromVars(cc, params)
 	out, err := program.Eval(ctx)
 
 	if err != nil {
@@ -49,7 +49,7 @@ func BenchmarkCompileDev(b *testing.B) {
 func BenchmarkCompileMain(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalmain.NewCompileConfig(evalmain.RegisterVals(params))
+	cc := evalmain.NewConfig(evalmain.RegVarAndOp(params))
 
 	s := `
 (and
@@ -72,7 +72,7 @@ func BenchmarkCompileMain(b *testing.B) {
 	if err != nil {
 		b.Fatal(err)
 	}
-	ctx := evalmain.NewCtxWithMap(cc, params)
+	ctx := evalmain.NewCtxFromVars(cc, params)
 	out, err := program.Eval(ctx)
 
 	if err != nil {
@@ -87,7 +87,7 @@ func BenchmarkCompileMain(b *testing.B) {
 func BenchmarkCompileDev1(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params))
+	cc := evaldev.NewConfig(evaldev.RegVarAndOp(params))
 
 	s := `
 (and
@@ -110,7 +110,7 @@ func BenchmarkCompileDev1(b *testing.B) {
 	if err != nil {
 		b.Fatal(err)
 	}
-	ctx := evaldev.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxFromVars(cc, params)
 	out, err := program.Eval(ctx)
 
 	if err != nil {
@@ -125,7 +125,7 @@ func BenchmarkCompileDev1(b *testing.B) {
 func BenchmarkCompileMain1(b *testing.B) {
 	params := benchmark.CreateParams()
 
-	cc := evalmain.NewCompileConfig(evalmain.RegisterVals(params))
+	cc := evalmain.NewConfig(evalmain.RegVarAndOp(params))
 
 	s := `
 (and
@@ -148,7 +148,7 @@ func BenchmarkCompileMain1(b *testing.B) {
 	if err != nil {
 		b.Fatal(err)
 	}
-	ctx := evalmain.NewCtxWithMap(cc, params)
+	ctx := evalmain.NewCtxFromVars(cc, params)
 	out, err := program.Eval(ctx)
 
 	if err != nil {

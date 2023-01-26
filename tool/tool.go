@@ -28,7 +28,7 @@ func PrintStringKeyMap[T any](m map[string]T) {
 	sb.WriteString("{\n")
 
 	for _, s := range keys {
-		sb.WriteString(fmt.Sprintf("        `%s`: %v\n", s, m[s]))
+		sb.WriteString(fmt.Sprintf("        `%s`: %v,\n", s, m[s]))
 	}
 
 	sb.WriteString("}")

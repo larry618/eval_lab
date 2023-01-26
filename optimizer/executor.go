@@ -9,7 +9,7 @@ import (
 )
 
 type Executor struct {
-	cc *eval.CompileConfig
+	cc *eval.Config
 
 	rules []string
 	ctxes []*eval.Ctx
@@ -20,7 +20,7 @@ type Executor struct {
 }
 
 func NewExecutor(
-	cc *eval.CompileConfig,
+	cc *eval.Config,
 	rules []string,
 	ctxes []*eval.Ctx) (*Executor, error) {
 
@@ -36,7 +36,7 @@ func NewExecutor(
 
 func (e *Executor) initIndexMap() (err error) {
 	indexMap := make(map[string]int)
-	for s := range e.cc.SelectorMap {
+	for s := range e.cc.VariableKeyMap {
 		indexMap[s] = len(indexMap)
 	}
 
@@ -99,7 +99,7 @@ func (e *Executor) Exec(costs []float64) (float64, error) {
 }
 
 func (e *Executor) newTask(costs []float64) *task {
-	cc := eval.CopyCompileConfig(e.cc)
+	cc := eval.CopyConfig(e.cc)
 	cc.CompileOptions[eval.ReportEvent] = true
 	cc.CostsMap = e.ToCostsMap(costs)
 	return &task{
@@ -115,7 +115,7 @@ type task struct {
 	rules   []string
 	ctxes   []*eval.Ctx
 
-	cc    *eval.CompileConfig
+	cc    *eval.Config
 	exprs []*eval.Expr
 }
 

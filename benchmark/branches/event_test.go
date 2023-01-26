@@ -18,9 +18,9 @@ func BenchmarkEventEvalDev(b *testing.B) {
 
 	params := benchmark.CreateParams()
 
-	cc := evaldev.NewCompileConfig(evaldev.RegisterVals(params), evaldev.EnableReportEvent)
+	cc := evaldev.NewConfig(evaldev.RegVarAndOp(params), evaldev.EnableReportEvent)
 
-	ctx := evaldev.NewCtxWithMap(cc, params)
+	ctx := evaldev.NewCtxFromVars(cc, params)
 
 	s := `
 (and
@@ -62,9 +62,9 @@ func BenchmarkEventEvalMain(b *testing.B) {
 
 	params := benchmark.CreateParams()
 
-	cc := evalmain.NewCompileConfig(evalmain.RegisterVals(params), evalmain.EnableReportEvent)
+	cc := evalmain.NewConfig(evalmain.RegVarAndOp(params), evalmain.EnableReportEvent)
 
-	ctx := evalmain.NewCtxWithMap(cc, params)
+	ctx := evalmain.NewCtxFromVars(cc, params)
 
 	s := `
 (and

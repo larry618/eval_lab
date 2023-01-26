@@ -11,11 +11,11 @@ import (
 const size = 10000
 
 func main() {
-	cc := eval.NewCompileConfig()
+	cc := eval.NewConfig()
 
 	cc.ConstantMap = rule.ConstantMap()
-	cc.SelectorMap = rule.SelectorMap()
 	cc.OperatorMap = rule.OperatorMap()
+	cc.VariableKeyMap = rule.VariableKeyMap()
 
 	rules, err := rule.LoadRules()
 	if err != nil {

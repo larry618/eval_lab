@@ -27,9 +27,8 @@ func ExampleEval_infix() {
 		"v4": 4,
 		"v5": 5,
 	}
-	cc := eval.NewCompileConfig(eval.EnableInfixNotation, eval.RegisterVals(vals))
 
-	output, err := eval.Eval(expr, vals, cc)
+	output, err := eval.Eval(expr, vals, eval.EnableInfixNotation, eval.RegVarAndOp(vals))
 	if err != nil {
 		fmt.Printf("err: %v", err)
 		return
@@ -38,4 +37,26 @@ func ExampleEval_infix() {
 	fmt.Printf("%v", output)
 
 	// Output: 5
+}
+
+func ExampleEval_withVariable() {
+	expr := `
+(and
+  (>= age 30)
+  (= gender "Male")
+  (not is_student))`
+
+	res, err := eval.Eval(expr, map[string]interface{}{
+		"age":        30,
+		"gender":     "Male",
+		"is_student": false,
+	})
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("%v", res)
+
+	// Output: true
 }
