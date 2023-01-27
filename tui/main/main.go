@@ -3,23 +3,20 @@ package main
 import (
 	"github.com/onheap/eval"
 	"github.com/onheap/eval_lab/tui"
+	"time"
 )
 
 func main() {
 
 	s := `
-   (and
-        (or
-          (>= credit Good)   ;; cost 100
-          (overlap ("top" "high_value") user_tags))
-        (not
-          (in "F" user_tags)))
+(and                  
+  (or                 
+    (= Origin "MOW") 
+    (= Country "RU")) 
+  (or                 
+    (>= Value 100)    
+    (= Adults 1)))    
 	`
-
-	//s := `(and (> Adults 1) (now))`
-
-	//vals := benchmark.CreateParams()
-	//cc := eval.NewCompileConfig(eval.RegisterVals(vals), eval.EnableReportEvent, eval.Optimizations(false))
 
 	vals := map[string]interface{}{
 		"Origin":  "MOW",
@@ -47,10 +44,14 @@ func main() {
 			eval.ReduceNesting:   true,
 		},
 		CostsMap: map[string]float64{
-			"credit": 100,
+			//"Origin": 100,
+			//"Value":  -100,
+			//"Adults": -100,
 		},
 		OperatorMap: map[string]eval.Operator{
-			"now": nil,
+			"now": func(*eval.Ctx, []eval.Value) (eval.Value, error) {
+				return time.Now().Unix(), nil
+			},
 		},
 	}
 
